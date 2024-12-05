@@ -1,0 +1,16 @@
+{
+    "name": "fruteria-backend",
+    "version": "1.0.0",
+    "description": "Backend para la aplicación de la frutería",
+    "main": "server.js",
+    "scripts": {
+    "start": "node server.js"
+    },
+    "author": "Diego",
+    "license": "MIT",
+    "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.5.1",
+    "cors": "^2.8.5"  
+    }
+}

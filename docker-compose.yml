@@ -1,0 +1,47 @@
+version: '3.8'
+services:
+  db:
+    build:
+      context: ./db
+    container_name: fruteria_db
+    environment:
+      POSTGRES_DB: fruteria
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5434:5432"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: fruteria_backend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: fruteria
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: fruteria_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
